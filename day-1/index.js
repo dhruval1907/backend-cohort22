@@ -1,5 +1,9 @@
-const catme = require("cat-me")
+const express = require("express")
 
-console.log(catme());
+// console.log(catme());
+
+const app = express()
+
+app.listen(3000);
 
 
