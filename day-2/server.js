@@ -6,6 +6,9 @@ app.get("/",(req,res)=>{
     res.send("hello world")
 })
 
+app.get("/home",(req,res)=>{
+    res.send("hello from the home page")
+})
 
 app.get("/about",function(res,req){
     req.send("this is about page")
