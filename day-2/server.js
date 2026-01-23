@@ -3,15 +3,17 @@ const express = require("express")
 const app = express()
 
 app.get("/",(req,res)=>{
-    res.send("hello world")
+    res.send("this is a home page")
+})
+
+app.get("/about",(req,res)=>{
+    res.send("this is a about page ")
 })
 
 app.get("/home",(req,res)=>{
-    res.send("hello from the home page")
+    res.send("this is a home page")
 })
-
-app.get("/about",function(res,req){
-    req.send("this is about page")
+app.listen(3000,()=>{
+    console.log("the server is working on the 3000");
+    
 })
-
-app.listen(3000)
