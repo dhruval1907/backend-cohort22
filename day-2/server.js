@@ -2,10 +2,11 @@ const express = require("express")
 
 const app = express()
 
+app.use(express.json())
+
 app.post("/notes",(req,res)=>{
     res.send("notes created")
-    console.log(req.body);
-    
+    console.log(req.body); 
 })
 
 app.listen(3000,()=>{
