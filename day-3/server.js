@@ -4,26 +4,17 @@ const zoo = express();
 zoo.use(express.json());
 
 const jobs = [];
-
-
 zoo.listen(4000, () => {
     console.log(`Server running on port 4000`);
 });
-
-
-// Root route
 zoo.get("/", (req, res) => {
     res.send("Jobs API is running");
 });
-
-// Create job
 zoo.post("/jobs", (req, res) => {
-    const data = req.body;
-    jobs.push(data);
-    res.json({
-        message: "Job created",
-        data: data
-    });
+    jobs.push(req.body)
+    res.status(201).json({
+        message: "notes is created"
+    })
 });
 
 // Get jobs
@@ -31,3 +22,17 @@ zoo.get("/jobs", (req, res) => {
     res.json(jobs);
 });
 
+zoo.delete("/jobs/:index", (req, res) => {
+    delete jobs[req.params.index]
+    res.status(204).json({
+        message: "data is deleted"
+    })
+})
+// patch method
+zoo.patch("/jobs/:index", (req, res) => {
+    jobs[req.params.index].job = [req.body].job
+
+    res.status(200).json({
+        message: "data is modified completed"
+    })
+})
