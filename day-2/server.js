@@ -4,8 +4,16 @@ app.listen(3000, () => {
     console.log("the server is runnig on 3000");
 })
 const notes = []
-app.post("/notes",(req,res)=>{
+app.use(express.json())
+app.post("/notes", (req, res) => {
     res.send("notes is created")
-    
+    const note = req.body
+    notes.push(note)
 })
-
+app.get("/notes", (req, res) => {
+    res.send(notes)
+})
+app.delete("/notes/:index", (req, res) => {
+    delete notes[req.params.index]
+    res.send("deleted note successfully")
+})
