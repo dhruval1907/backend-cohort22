@@ -17,10 +17,7 @@ app.delete("/notes/:index", (req, res) => {
     delete notes[req.params.index]
     res.send("notes delete sucsessfully")
 })
-app.patch("/notes/:index", (req, res) => {
-    notes[req.params.index].description = req.body.description
-    res.send("notes updated sucessfully");
-
+app.patch("/notes/:index",(req,res)=>{
+    notes [req.params.index].job = req.body.job
+    res.send("note modified")
 })
-
-module.exports = app;
