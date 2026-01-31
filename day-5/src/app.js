@@ -18,8 +18,8 @@ app.post("/notes", async (req, res) => {
     
 })
 
-// app.get("/notes",(req,res)=>{
-//     res.send("server is created")
-// })
+app.get("/notes",(req,res)=>{
+    res.send("server is created")
+})
 
 module.exports = app

@@ -7,7 +7,7 @@ app.listen(3000,()=>{
 })
 
 function connection(){
-    mongoose.connect("mongodb+srv://Dhruval:MOHsmQG4RIET3Al5@cluster0.gpsr3jg.mongodb.net/day-1")
+    mongoose.connect(process.env.MONGO_URI)
 
     console.log("connection is established");
 }
