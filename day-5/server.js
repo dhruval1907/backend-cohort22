@@ -1,14 +1,17 @@
 const app = require("./src/app")
+
 const mongoose = require("mongoose")
 
-function connection (){
-    mongoose.connect("mongodb+srv://dhruval:qdmEBiCgbHx2xalF@cluster0.nmmdxdq.mongodb.net/day-5").then(()=>{
-        console.log("connection eastablished")
-    })
+app.listen(3000,()=>{
+    console.log("server is running ");
+})
+
+function connection(){
+    mongoose.connect("mongodb+srv://Dhruval:MOHsmQG4RIET3Al5@cluster0.gpsr3jg.mongodb.net/day-1")
+
+    console.log("connection is established");
 }
 
 connection()
 
-app.listen(3000,(req,res)=>{
-    console.log(("the server is runnig on 3000"));
-})
+app
