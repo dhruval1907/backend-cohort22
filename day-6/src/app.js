@@ -23,7 +23,7 @@ app.get("/notes", async (req, res) => {
 
     res.status(200).json({
         message: "fatching the notes",
-        notes,
+        note,
     })
 })
 
