@@ -4,61 +4,45 @@ const App = () => {
 
   const [notes, setnotes] = useState([])
 
-  function fetchData() {
-    axios.get("http://localhost:3000/api/notes/")
+  function fetchDATA() {
+    axios.get("http://localhost:3000/api/notes")
       .then((res) => {
         setnotes(res.data.note)
       })
   }
   useEffect(function () {
-    fetchData()
+    fetchDATA()
   }, [])
 
-  function handelSubmit(e) {
+  function formHandle(e) {
     e.preventDefault()
-
     const { title, description } = e.target.elements
-
-    console.log(title.value, description.value);
-
     axios.post("http://localhost:3000/api/notes", {
       title: title.value,
       description: description.value
-    }).then((res) => {
-      console.log(res);
-      fetchData()
     })
-
+    fetchDATA()
   }
-
-  function deleteHandler(noteId) {
-    console.log(noteId);
-
-    // axios.delete("http://localhost/3000/api/notes",{
-
-    // })
+  function deleteHandle(noteID) {
+    axios.delete("http://localhost:3000/api/notes/" + noteID)
   }
 
   return (
     <div className='notes'>
-      <form className='form' onSubmit={handelSubmit}>
-        <input name='title' type="text" placeholder='enter title' />
-        <input name='description' type="text" placeholder='enter description' />
-        <input type="submit" />
+      <form onSubmit={formHandle}>
+        <input type="text" name="title" id="" placeholder='enter a task' />
+        <input type="text" name="description" id="" placeholder='enter a description' />
+        <button>create</button>
       </form>
-      {
-        notes.map((item) => {
-          return (
-            <div key={item._id} className='note'>
-              <h1>{item.title}</h1>
-              <p>{item.description}</p>
-              <button onClick={() => deleteHandler(item._id)}>
-                delete
-              </button>
-            </div>
-          )
-        })
-      }
+      {notes.map((item, indx) => {
+        return <div className='div' key={indx}>
+          <h1>{item.title}</h1>
+          <h1>{item.description}</h1>
+          <button onClick={() => {
+            deleteHandle(item._id)
+          }}>delete</button>
+        </div>
+      })}
     </div>
   )
 }
