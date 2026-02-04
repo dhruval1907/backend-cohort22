@@ -5,6 +5,9 @@ function connectTODB() {
         .then(() => {
             console.log("DB connected");
         })
+        .catch((errr) => {
+            console.log(errr);
+        })
 }
 module.exports = connectTODB
 

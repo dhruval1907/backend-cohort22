@@ -1,57 +1,83 @@
-const express = require("express")
-const noteModel = require("../models/data.models")
-const cors = require("cors")
-const app = express()
-const path = require("path")
-app.use(cors())
-app.use(express.json())
+const express = require("express");
+const noteModel = require("../models/data.models");
+const cors = require("cors");
+const path = require("path");
+
+const app = express();
+
+// ================= MIDDLEWARE =================
+app.use(cors());
+app.use(express.json());
 app.use(express.static("./public"))
 
+// Static files (React build / HTML / CSS / JS)
+
+// ================= API ROUTES =================
+
+// CREATE NOTE
 app.post("/api/notes", async (req, res) => {
-    const { title, description } = req.body
+  try {
+    const { title, description } = req.body;
 
     const note = await noteModel.create({
-        title, description
-    })
+      title,
+      description,
+    });
 
     res.status(201).json({
-        message: "notes is created",
-        note
-    })
-})
+      message: "note created",
+      note,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "error creating note" });
+  }
+});
 
-
-
-app.use("*name", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "/public/index.html"))
-})
-
+// GET ALL NOTES
 app.get("/api/notes", async (req, res) => {
-    const note = await noteModel.find()
+  try {
+    const note = await noteModel.find();
 
     res.status(200).json({
-        message: "fethcing the data",
-        note
-    })
+      message: "fetching the data",
+      note,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "error fetching notes" });
+  }
+});
 
-})
-
+// DELETE NOTE
 app.delete("/api/notes/:indx", async (req, res) => {
-    const id = req.params.indx
-    await noteModel.findByIdAndDelete(id)
-    res.status(200).json({
-        message: "notes is deleted"
-    })
-})
+  try {
+    await noteModel.findByIdAndDelete(req.params.indx);
 
+    res.status(200).json({
+      message: "note deleted",
+    });
+  } catch (err) {
+    res.status(500).json({ message: "error deleting note" });
+  }
+});
+
+// UPDATE NOTE (PATCH)
 app.patch("/api/notes/:indx", async (req, res) => {
-    const id = req.params.indx
-    const { description } = req.body
-    await noteModel.findByIdAndUpdate(id, { description })
+  try {
+    await noteModel.findByIdAndUpdate(req.params.indx, req.body);
 
     res.status(200).json({
-        message: "note change successfully",
-    })
-})
+      message: "note updated successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ message: "error updating note" });
+  }
+});
 
-module.exports = app
+// ================= WILDCARD ROUTE (ALWAYS LAST) =================
+app.get("*name", (req, res) => {
+  res.sendFile(
+    path.join(__dirname,"..","public","index.html")
+  );
+});
+
+module.exports = app;
