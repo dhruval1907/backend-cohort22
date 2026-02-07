@@ -9,10 +9,9 @@ app.get("/", (req, res) => {
     res.cookie("token", token)
     res.send("complete")
 })
-app.get("/read",(req,res)=>{
-    let data = jwt.sign(req.cookies.token,"secret")
+app.get("/read", (req, res) => {
+    let data = jwt.sign(req.cookies.token, "secret")
     console.log(data);
-    
 })
 app.listen(3000, () => {
     console.log("server is running on port 3000");
