@@ -2,9 +2,11 @@ const express = require("express")
 const app = express()
 const cors = require("cors")
 const authRouter = require("../src/routes/auth.route")
+const cookieParser = require("cookie-parser")
 // middleware
 app.use(express.json())
 app.use(cors())
+app.use(cookieParser())
 app.use("/api/auth", authRouter)
 
 // app.get("/register", async (req, res) => {
