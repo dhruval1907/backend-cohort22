@@ -36,7 +36,32 @@ authRoute.post("/login", async (req, res) => {
 
     const user = await userModel.findOne({ email })
 
-    
+    if (!user) {
+        return res.status(404).json({
+            message: "user note found"
+        })
+    }
 
+    const isPasswordmatched = user.password === password
+
+    if (!isPasswordmatched) {
+        return res.send(401).json({
+            message: "invalid password"
+        })
+    }
+
+    const token = jwt.sign({
+        email,
+        password
+    }, process.env.JWT_SECRET)
+
+
+    res.cookie("token", token)
+
+    res.status(201).json({
+        mesage: 'user logged in      successfully',
+        user,
+        token
+    })
 })
 module.exports = authRoute
