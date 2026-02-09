@@ -14,7 +14,9 @@ const App = () => {
   }, [])
 
   axios.get("http://localhost:3000/register", {
-    const {email}
+
+    const {user , }
+
   })
 
 
