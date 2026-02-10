@@ -36,6 +36,17 @@ authRouter.post("/register", async (req, res) => {
     })
 })
 
+authRouter.get("/register", async (req, res) => {
+    const users = await userModel.find()
+
+    res.status(200).json({
+        message: "fethcing all the data",
+        users
+    })
+
+
+})
+
 authRouter.post("/login", async (req, res) => {
     const { email, password } = req.body
     const user = await userModel.findOne({ email })
